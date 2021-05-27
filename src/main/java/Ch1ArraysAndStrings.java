@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Ch1ArraysAndStrings {
@@ -104,34 +105,64 @@ public class Ch1ArraysAndStrings {
     }
 
     /**
-     * 1.4 Write a function to check if a given string is a permutation of a palindrome
+     * 1.4 Write a function to check if a given string is a permutation of a palindrome, and if so
+     * return the different possibilities
      * @param s
      * @return
      */
-    public String PalindromePermutation(String s){
-        Map<Character,Integer> map = new HashMap<Character,Integer>();
+    public String PalindromePermutation(String s) {
+        Map<Character, Integer> map = new HashMap<Character, Integer>();
 
+        // handle empty, " " and one character
         //store in hashmap ordered by character
-        for(int i=0; i<s.length(); i++){
+        for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if (map.containsKey(c)){
+            if (map.containsKey(c)) {
                 int val = map.get(c);
                 val++;
-                map.put(c,val);
-            }
-            else{
-                map.put(c,1);
+                map.put(c, val);
+            } else {
+                map.put(c, 1);
             }
         }
 
         //if even check if all values are 2
+        if (s.length() % 2 == 0) {
+            boolean palindromePossible = true;
+            Iterator it = map.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry) it.next();
+                if (!((int) pair.getValue() == 2)) {
+                    palindromePossible = false;
+                }
+            }
+
+            if (palindromePossible){
+                StringBuilder toPermute = new StringBuilder();
+                 it = map.entrySet().iterator();
+
+                 // get the string to be mirrored
+                 while (it.hasNext()) {
+                    Map.Entry pair = (Map.Entry) it.next();
+                    toPermute.append(pair.getValue().toString());
+                }
+
+                 return toPermute.toString();
+
+        }
+
+
+
+        }
+
             //permute in every possible way
-        //if odd check if all values are 2 except for 'middle' that is 1
+            //if odd check if all values are 2 except for 'middle' that is 1
             //permute in every possible way
 
-        //to be continued
+            //to be continued
 
-        return map.toString();
+            return map.toString();
+
     }
 
 
