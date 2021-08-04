@@ -19,6 +19,7 @@ public class Ch2LinkedLists {
 
     static class Node{
         Node next = null;
+        Node previous = null;
         int data;
 
         public Node(int d){
@@ -34,16 +35,22 @@ public class Ch2LinkedLists {
             }
 
             n.next = end;
+            n.next.previous = n;
         }
         Node deleteNode(Node head, int d){
             if (head==null) return null;
 
             Node n = head;
-            if (n.data==d) return head.next;
+            if (n.data==d){
+                head.previous = null;
+                return head.next;
+            }
 
             while (n.next!=null){
                 if (n.next.data==d){
-                    n.next = n.next.next;
+
+                    n.next = n.next.next; //erasing n.next
+                    n.next.next.previous = n;
                     return head;
                 }
                 n=n.next;
@@ -96,6 +103,16 @@ public class Ch2LinkedLists {
     //2.1 Follow-up, same problem but no buffer allowed
     static void removeDupsNoBuffer(Node head){
         //for each entry, run to the end of the list and check if there are duplicates, if so remove them
+        if(head!=null){
+            Node current = head;
+            Node runner = head;
+            while(current.next!=null){
+                runner=current;
+                while(runner.next!=null){
+
+                }
+            }
+        }
     }
 
 }
