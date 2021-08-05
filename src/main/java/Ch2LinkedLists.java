@@ -12,7 +12,7 @@ public class Ch2LinkedLists {
         head.appendToTail(4);
 
         System.out.println(head);
-        removeDups(head);
+        removeDupsNoBuffer(head);
         System.out.println(head);
 
     }
@@ -105,12 +105,18 @@ public class Ch2LinkedLists {
         //for each entry, run to the end of the list and check if there are duplicates, if so remove them
         if(head!=null){
             Node current = head;
-            Node runner = head;
+            Node runner;
             while(current.next!=null){
                 runner=current;
                 while(runner.next!=null){
+                    runner = runner.next;
+                    if (runner.data==current.data){
+                        runner.previous.next = runner.next;
+                        runner.next.previous =  runner.previous;
+                    }
 
                 }
+                current = current.next;
             }
         }
     }
