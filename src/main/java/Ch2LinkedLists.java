@@ -12,8 +12,10 @@ public class Ch2LinkedLists {
         head.appendToTail(4);
 
         System.out.println(head);
+        System.out.println(kthToLast(head,2));
         removeDupsNoBuffer(head);
         System.out.println(head);
+        System.out.println(kthToLast(head,2));
 
     }
 
@@ -114,11 +116,39 @@ public class Ch2LinkedLists {
                         runner.previous.next = runner.next;
                         runner.next.previous =  runner.previous;
                     }
-
                 }
                 current = current.next;
             }
         }
+    }
+
+    //2.2 Kth to Last: Implement an algorithm to find the kth to last element of a singly linked list
+    static int kthToLast(Node head, int k){
+        int length = length(head);
+        Node current = head;
+
+        for (int i=0; i<length-k; i++){
+            current = current.next;
+        }
+
+        return current.data;
+    }
+
+    /*
+        HELPER CLASSES
+     */
+    static int length(Node head){
+        int length=0;
+        Node current = head;
+        if (head==null) return length;
+        else{
+            while(current.next!=null){
+                length++;
+                current = current.next;
+            }
+            length++;
+        }
+        return length;
     }
 
 }
