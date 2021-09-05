@@ -7,7 +7,7 @@ public class Ch1ArraysAndStrings {
     static String permutationString = "";
 
     public static void main(String[] args) {
-        System.out.println(PalindromePermutation("aabbcc"));
+        System.out.println(PalindromePermutation("aaaabbcc"));
     }
 
     /**
@@ -184,15 +184,34 @@ public class Ch1ArraysAndStrings {
                 return str;
 
             } else {
+
+
                 return "No palindromes found.";
             }
-            //TODO: Handle off #
 
 
 
         }
+        else {
+            int midpoint=0;
+            int midChar;
+            boolean ppossible = true;
+            Iterator ot = map.entrySet().iterator();
+            while (ot.hasNext()) {
+                Map.Entry pair = (Map.Entry) ot.next();
+                if (!(((int) pair.getValue()) % 2 == 0)) {
+                    midpoint++;
 
-        return map.toString();
+                }
+            }
+
+            if (midpoint>1) ppossible=false;
+            else{
+                String swm = ""; //string without midpoint
+            }
+
+            return map.toString();
+        }
     }
 
     private static void permutation(String prefix, String str){
