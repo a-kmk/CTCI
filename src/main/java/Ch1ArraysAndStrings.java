@@ -4,8 +4,10 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class Ch1ArraysAndStrings {
+    static String permutationString = "";
+
     public static void main(String[] args) {
-        System.out.println(PalindromePermutation("aaaabbbbcc"));
+        System.out.println(PalindromePermutation("aabbcc"));
     }
 
     /**
@@ -137,8 +139,8 @@ public class Ch1ArraysAndStrings {
                 map.put(c, 1);
             }
         }
-
-        //if even check if all values are 2
+        //TODO: Odd length palindromes
+        //if length is even then all characters must have an even occurrence
         if (s.length() % 2 == 0) {
             boolean palindromePossible = true;
             Iterator it = map.entrySet().iterator();
@@ -162,13 +164,24 @@ public class Ch1ArraysAndStrings {
                     // returns right number of recurring characters
                     for (int i = 0; i < occurences; i += 2) {
                         toPermute.append(pair.getKey().toString());
-
                     }
-                    //TODO: permute and mirror before returning
-                    permutation("", toPermute.toString());
 
                 }
-                return toPermute.toString();
+
+                permutation("", toPermute.toString());
+                //mirror permutations before returning
+                String returnString = permutationString;
+                String lines[] = returnString.split("\\r?\\n");
+
+                for (int i=0; i<lines.length; i++) {
+                    String line = lines[i];
+                    line += new StringBuilder(line).reverse().toString();
+                    lines[i] = line;
+                }
+
+                String str = String.join("\n", lines);
+                permutationString="";
+                return str;
 
             } else {
                 return "No palindromes found.";
@@ -184,7 +197,7 @@ public class Ch1ArraysAndStrings {
 
     private static void permutation(String prefix, String str){
         int n = str.length();
-        if (n == 0) System.out.println(prefix);
+        if (n == 0) permutationString+=prefix + "\n";
         else {
             for (int i = 0; i < n; i++)
                 permutation(prefix + str.charAt(i), str.substring(0, i) + str.substring(i+1, n));
